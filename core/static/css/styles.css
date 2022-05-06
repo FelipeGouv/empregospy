@@ -1,0 +1,46 @@
+.sidebar{
+    color: white;
+    height: 100vh !important;
+}
+
+.menu{
+    padding-top: 40px;
+}
+
+.menu li{
+    list-style: none;
+    padding-bottom: 10px;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+.topbar{
+    height: 50px !important;
+}
+
+header, .conteudo{
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.card-vaga:hover{
+    cursor: pointer !important;
+    
+}
+.card-active{
+    background-color: #212529 !important;
+    color: white !important;
+}
+
+
+.scroll{
+    overflow-y: scroll !important;
+    max-height: 90vh !important;
+    margin: 0%;
+}
+.scroll::-webkit-scrollbar{
+    width: 0 !important
+}

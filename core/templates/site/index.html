@@ -1,0 +1,44 @@
+{% extends 'site/base.html' %}
+
+    
+    {% block content %}
+    <div>
+        <div class="row">
+            <div class="col-4 scroll">
+                
+                {% for v in vagas %}
+                <div class="card mt-3 card-vaga {% if v.id == vaga.id %} card-active {% endif %}" vaga-slug="{{ v.slug }}">
+                    <div class="card-body">
+                        <h5>{{ v.cargo }}
+                            <span class="float-end" style="font-size: 16px !important;">R$ {{ v.salario }}</span>
+                        </h5>
+                        <p>{{ v.empresa }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+                    
+            </div>
+            <div class="col-8">
+                
+                {% block descricao_vaga %}
+                    
+                {% endblock descricao_vaga %}
+                    
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+{% block scripts %}
+    <script>
+        let cards = document.querySelectorAll('.card-vaga');
+
+        Array.from(cards).map(card => {
+            card.addEventListener('click', function() {
+                let slug = this.getAttribute('vaga-slug');
+                window.location.href = '/vaga/' + slug;
+            });
+        });
+    </script>
+{% endblock scripts %}
+    
