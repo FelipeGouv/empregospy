@@ -1,3 +1,4 @@
+import email
 from tkinter import CASCADE
 from django.db import models
 from django.conf import settings
@@ -12,6 +13,15 @@ class Empresa(models.Model):
     nome = models.CharField('Nome', max_length=1024)
     cpnj = models.CharField('CNPJ', max_length=100, unique=True)
     logo = models.ImageField('Logo', null=True, blank=True)
+    telefone = models.CharField('Telefone', max_length=100, null=True, blank=True)
+    email = models.EmailField('E-mail', max_length=100, null=True, blank=True)
+    endereco = models.CharField('Endereço', max_length=1024, null=True, blank=True)
+    cidade = models.CharField('Cidade', max_length=1024, null=True, blank=True)
+    estado = models.CharField('Estado', max_length=2, null=True, blank=True)
+    descricao = models.TextField('Descrição', null=True, blank=True)
+    
+    def qtd_vagas_empresa(self):
+        return Vaga.objects.filter(empresa=self, ativa=True).count()
     
     def __str__(self):
         return self.nome

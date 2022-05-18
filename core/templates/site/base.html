@@ -26,12 +26,12 @@
                             <a class="nav-link" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/vagas">Empresas</a>
+                            <a class="nav-link" href="{% url 'core:empresas' %}">Empresas</a>
                         </li>
                         
                         {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/vagas">Meu Cadastro</a>
+                            <a class="nav-link" href="{% url 'core:meu_cadastro' %}">Meu Cadastro</a>
                         </li>
                         {% endif %}
                             
@@ -39,7 +39,7 @@
                 </div>
                 
                 {% if user.is_authenticated %}
-                    <a href="{% url 'core:logout_site' %}" class="text-end pe-3">Logout</a>
+                    <a href="{% url 'core:logout_site' %}" class="text-end pe-3 text-white">Logout</a>
                 {% else %}
                     <a href="{% url 'core:login_site' %}" class="text-end pe-3">Login</a>
                 {% endif %}

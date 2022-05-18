@@ -14,7 +14,6 @@
 
 a{
     text-decoration: none;
-    color: white;
 }
 
 .topbar{
@@ -41,6 +40,6 @@ header, .conteudo{
     max-height: 90vh !important;
     margin: 0%;
 }
-.scroll::-webkit-scrollbar{
+/* .scroll::-webkit-scrollbar{
     width: 0 !important
-}
+} ----- barrinha do scroll -----*/

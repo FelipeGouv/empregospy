@@ -1,6 +1,8 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from candidato.models import Candidato
+from core.forms import CandidatoForm
 from empresa.models import CandidatosVaga, Empresa, Vaga
 
 # Create your views here.
@@ -13,12 +15,15 @@ def home_site(request):
     return render(request, 'site/index.html', {'vagas':vagas})
 
 def login_site(request):
+    redirect_url = 'core:home_site'
+    if request.GET.get('next'):
+        redirect_url = request.GET.get('next')
     if request.user.is_authenticated:
         try:
             Empresa.objects.get(usuario=request.user)
             return redirect('core:index')
         except:
-            return redirect('core:home_site')
+            return redirect(redirect_url)
         
     if request.method == "POST":
         username = request.POST.get('usuario')
@@ -32,7 +37,7 @@ def login_site(request):
                 Empresa.objects.get(usuario=request.user)
                 return redirect('core:index')
             except:
-                return redirect('core:home_site')
+                return redirect(redirect_url)
         else:
             return render(request, 'site/login.html', {'erro': 'Usuário ou senha inválidos.'})
         
@@ -59,3 +64,31 @@ def descricao_vaga(request, slug):
         'candidatado': candidatado
     }
     return render(request,'site/vaga.html', data)
+
+def empresas(request):
+    empresas = Empresa.objects.all()
+    
+    for empresa in empresas:
+        empresa.vagas = Vaga.objects.filter(empresa=empresa, ativa=True)[0:4]
+    
+    return render(request, 'site/empresas.html', {'empresas':empresas})
+
+def meu_cadastro(request):
+    candidato = Candidato.objects.get(usuario=request.user)
+    
+    return render(request , 'site/meu_cadastro.html', {'candidato':candidato})
+
+def editar_cadastro(request):
+    candidato = Candidato.objects.get(usuario=request.user)
+    if request.method == 'POST':
+        form = CandidatoForm(request.POST, request.FILES, instance=candidato)
+    
+        if form.is_valid():
+            form.save()
+            return redirect('core:meu_cadastro')
+    else:
+        form = CandidatoForm(instance=candidato)
+    
+    print(form.errors)
+    return render(request, 'site/editar_cadastro.html', {'form':form})
+    

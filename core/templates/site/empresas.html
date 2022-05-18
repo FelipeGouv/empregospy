@@ -1,0 +1,48 @@
+{% extends 'site/base.html' %}
+
+
+{% block content %}
+<div class="row">
+
+    {% for e in empresas %}
+    <div class="col-12 mt-3">
+        <div class="card">
+            <div class="card-header">
+                <h5>{{ e.nome }}</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-2">
+                        <img src="{{ e.logo.url }}" alt="logo" width="150px" height="150px">
+                    </div>
+                    <div class="col-6">
+                        <p>{{ e.cnpj }}</p>
+                        <p>{{e.endereco}} {{ e.cidade }} - {{ e.estado }}</p>
+                        <p>{{ e.telefone }}</p>
+                        <p>{{ e.email }}</p>
+                        <p>{{ e.qtd_vagas_empresa }} Vagas disponíveis</p>
+                        <p>{{ e.descricao }}</p>
+            
+                    </div>
+                    <div class="col-4">
+                        <h6>Vagas</h6>
+                        {% for ev in e.vagas %}
+                            <p>{{ ev.cargo }}</p>
+                        {% endfor %}
+                        
+                        {% if e.vagas|length >= 4 %}
+                        <a href="/" class="text-primary">Ver todas</a>
+                        {% endif %}
+                        
+                        {% if not e.vagas %}
+                            <span>Esta empresa não possui vagas cadastradas</span>
+                        {% endif %}
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+    {% endblock content %}

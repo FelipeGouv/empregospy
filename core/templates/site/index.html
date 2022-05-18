@@ -4,7 +4,7 @@
     {% block content %}
     <div>
         <div class="row">
-            <div class="col-4 scroll">
+            <div id="scroll-vagas" class="col-4 scroll">
                 
                 {% for v in vagas %}
                 <div class="card mt-3 card-vaga {% if v.id == vaga.id %} card-active {% endif %}" vaga-slug="{{ v.slug }}">

@@ -1,0 +1,46 @@
+{% extends 'site/base.html' %}
+
+
+{% block content %}
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>{{ candidato.nome }}</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-2">
+
+                        {% if candidato.foto %}
+                        <img src="{{ candidato.foto.url }}" alt="foto" width="170px" height="200px">
+                        {% else %}
+                        <img src="https://www.tribunadeituverava.com.br/wp-content/uploads/2018/02/sem-foto.jpg"
+                            alt="foto" width="170px" height="200px">
+                        {% endif %}
+
+                    </div>
+                    <div class="col-10">
+                        <p>
+                            <strong>Nome:</strong> {{ candidato.nome }}
+                        </p>
+                        <p> 
+                            <strong>CPF:</strong> {{ candidato.cpf }}
+                        </p>
+                        <p>
+                            <strong>Email:</strong> {{ candidato.email }}
+                        </p>
+                        <p>
+                            <strong>Telefone:</strong> {{ candidato.telefone }}
+                        </p>
+                        <p>
+                            <strong>Cidade:</strong> {{ candidato.cidade }}
+                            <a class="btn btn-primary float-end" href="{% url 'core:editar_cadastro' %}">Editar</a>
+                        </p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
